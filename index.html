@@ -1,0 +1,85 @@
+<head>	
+	<title>Project Demo Site</title>
+	<style>
+		body{
+			background-color:#1e1e1e;
+		}
+		.elem{
+			animation: out 0.7s ease-out 3.4s;
+			animation-fill-mode: forwards;
+		}
+		.elem2{
+			opacity: 0;
+			animation: out 0.7s ease-in 4.5s 1 reverse;
+			animation-fill-mode: forwards;
+		}
+		p{
+			color:white;
+			font-family:monospace;
+			top:50%;
+			left:50%;
+			transform:translate(-50%, -50%);
+			font-size:5vh;
+			text-align: center; 
+			position:absolute;
+			user-select: none;
+		}
+		img{
+			position:absolute;
+			user-select: none;
+			top:40%;
+			left:50%;
+			transform:translate(-50%, -60%); 
+			width:23vh; 
+		}
+		a{
+			display:none
+		}
+		code{
+			color:cornflowerblue;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		@keyframes out {
+			from { 
+				opacity: 1; 
+				filter: blur(0px);
+			}
+			to { 
+				opacity: 0; 
+				filter: blur(6px);
+			}
+		}
+	</style>
+</head>
+<body>
+	<img class="elem" src="speakers.png">
+	<p class="elem">increase volume for the best experience</p>
+	<p class="elem2">tap anywhere to begin</p>
+	<script>
+		var audio = new Audio('audio.mp3');
+
+		setTimeout(() => {
+				document.body.onclick = () => { 
+					document.body.onclick = "";
+					audio.play();
+					setTimeout(() => {
+						p = document.getElementsByClassName("elem2")[0];
+						p.classList.remove('elem2');
+						p.innerHTML = "<code>copy link</code> and prank someone else";
+						p.onclick = () => {
+							p.onclick = "";
+							t=document.createElement("input");
+							t.value=window.location.href;
+							document.body.appendChild(t);
+							t.select();
+							t.setSelectionRange(0, 99999);
+							navigator.clipboard.writeText(t.value);
+							document.body.removeChild(t);
+							p.innerHTML = "👍 " + p.innerHTML;
+						}
+					}, 3000)
+				};
+		}, 4000)
+	</script>
+</body>
